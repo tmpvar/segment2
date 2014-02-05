@@ -97,6 +97,11 @@ describe('segment2', function() {
       var s = Segment2(Vec2(0, 0), Vec2(10, 0));
       ok(s.closestPointTo(Vec2(5, 10)).equal(Vec2(5, 0)))
     });
+
+    it('should not throw nan when both start/end are the same', function() {
+      var s = Segment2(Vec2(5, 5), Vec2(5, 5));
+      ok(s.closestPointTo(Vec2(5, 10)).equal(Vec2(5, 5)))
+    });
   });
 
   describe('#midpoint', function() {

@@ -60,6 +60,10 @@ Segment2.prototype.closestPointTo = function(vec) {
 
   var t = Math.min(Math.max(vecadot/abdot, 0), 1);
 
+  if (isNaN(t)) {
+    t = 0;
+  }
+
   var point = ab.multiply(t).add(a);
   var length = vec.subtract(point, true).lengthSquared();
 
