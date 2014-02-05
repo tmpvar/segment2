@@ -42,6 +42,16 @@ Segment2.prototype.notify = function(vec) {
   }
 };
 
+Segment2.prototype.clone = function(segmentCtor, vecCtor) {
+  vecCtor = vecCtor || Vec2;
+  segmentCtor = segmentCtor || Segment2;
+
+  return new segmentCtor(
+    new vecCtor(this.start.x, this.start.y),
+    new vecCtor(this.end.x, this.end.y)
+  );
+};
+
 Segment2.prototype.length = function() {
   return this.start.distance(this.end);
 };
@@ -70,6 +80,19 @@ Segment2.prototype.closestPointTo = function(vec) {
   return point;
 };
 
+Segment2.prototype.containsPoint = function(vec) {
+
+  var s = this.start, e = this.end;
+  var dx = (s.x <= vec.x && e.x >= vec.x) || (s.x >= vec.x && e.x <= vec.x);
+  var dy = (s.y <= vec.y && e.y >= vec.y) || (s.y >= vec.y && e.y <= vec.y);
+  if (dx && dy) {
+    var a =  ((e.x - s.x) * (vec.y - s.y)) - ((vec.x - s.x) * (e.y - s.y));
+    return Vec2.clean(a) === 0;
+  }
+
+  return false;
+};
+
 Segment2.prototype.midpoint = function() {
   return this.start.subtract(this.end, true).divide(2).add(this.end);
 };
@@ -96,8 +119,8 @@ Segment2.prototype.rotate = function(rads, origin, returnNew) {
     origin = this.midpoint();
   }
 
-  var start = this.start.subtract(origin, true).rotate(rads);//.add(origin);
-  var end = this.end.subtract(origin, true).rotate(rads);//.add(origin);
+  var start = this.start.subtract(origin, true).rotate(rads);
+  var end = this.end.subtract(origin, true).rotate(rads);
 
   start.add(origin);
   end.add(origin);

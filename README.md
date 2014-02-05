@@ -41,6 +41,14 @@ __ignore__([fn])
 
 Remove a listener, or all of them if `fn` is not passed
 
+__clone__([segmentCtor [, vecCtor]])
+
+Create a copy of this segment.
+
+Pass `segmentCtor` if you have subclassed `Segment2`
+
+Pass `vecCtor` if you have subclassed `Vec2`
+
 __length__()
 
 return the length of the line segment
@@ -52,6 +60,10 @@ return the length of this line segment (squared)
 __closestPointTo__(vec2)
 
 return the closest point on this segment to the passed vec2
+
+__containsPoint__(vec2)
+
+return true if `vec2` lies on the segment
 
 __midpoint__()
 

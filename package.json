@@ -1,6 +1,6 @@
 {
   "name": "segment2",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "2d line segment",
   "keywords" : ["2d", "line segment", "line", "segment", "geometry"],
   "main": "segment2.js",

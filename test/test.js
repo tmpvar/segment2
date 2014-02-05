@@ -78,6 +78,45 @@ describe('segment2', function() {
     });
   });
 
+  describe('#clone', function() {
+    it('should return a copy of the line', function() {
+
+      var s = new Segment2(new Vec2(0, 0), new Vec2(10, 0));
+
+      var s2 = s.clone();
+
+      ok(s !== s2);
+
+      ok(s.start !== s2.start);
+      ok(s.end !== s2.end);
+
+      ok(s.start.equal(s2.start));
+      ok(s.end.equal(s2.end));
+    });
+
+    it('should return a copy of the line (swap ctors)', function() {
+
+      var s = new Segment2(new Vec2(0, 0), new Vec2(10, 0));
+
+      function noop(a, b) {
+        this.args = [a, b];
+        this.noop = true;
+      }
+
+      function noopVec() {
+        this.vec = true;
+      }
+
+      var s2 = s.clone(noop, noopVec);
+
+      ok(s !== s2);
+
+      ok(s2.noop);
+      ok(s2.args[0].vec);
+      ok(s2.args[1].vec);
+    });
+  });
+
   describe('#length', function() {
     it('it should compute the length of line segment', function() {
       var s = new Segment2(new Vec2(0, 0), new Vec2(10, 0));
@@ -215,6 +254,25 @@ describe('segment2', function() {
       ok(s2.start.equal(Vec2(10, 20)));
       ok(s2.end.equal(Vec2(0, 20)));
       ok(s2 !== s);
+    });
+  });
+
+
+  describe('#containsPoint', function() {
+    it('should return true if the point is on the line segment', function() {
+      var s = Segment2(Vec2(0, 0), Vec2(10, 0));
+      ok(s.containsPoint(Vec2(5, 0)));
+    });
+
+    it('should return true when the point is on the end', function() {
+      var s = Segment2(Vec2(0, 0), Vec2(10, 0));
+      ok(s.containsPoint(Vec2(10, 0)));
+    });
+
+    it('should return false if the point is not on the line segment', function() {
+      var s = Segment2(Vec2(0, 0), Vec2(10, 0));
+      ok(!s.containsPoint(Vec2(5, 1)));
+      ok(!s.containsPoint(Vec2(110, 0)));
     });
   });
 });
