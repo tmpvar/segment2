@@ -1,0 +1,24 @@
+{
+  "name": "segment2",
+  "version": "0.1.0",
+  "description": "",
+  "main": "segment2.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tmpvar/segment2.git"
+  },
+  "author": "Elijah Insua <tmpvar@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tmpvar/segment2/issues"
+  },
+  "devDependencies": {
+    "mocha": "1.x",
+    "istanbul": "*"
+  },
+  "scripts": {
+    "test": "node_modules/mocha/bin/mocha test/test.js -R spec",
+    "cover": "istanbul cover _mocha -- test/test.js -R spec",
+    "minify": "browserify -e segment2.js | uglifyjs > segment2.js.min.js"
+  }
+}
