@@ -22,6 +22,16 @@ describe('segment2', function() {
       var fn = function() {};
       ok(s.change(fn) === fn);
     });
+
+    it('should call the listener when start/end changes', function(t) {
+      var s = Segment2();
+      s.change(function(seg, vec) {
+        ok(seg === s);
+        ok(vec === s.start);
+        t();
+      });
+      s.start.add(Vec2(5, 5));
+    });
   });
 
   describe('#ignore', function() {
@@ -114,6 +124,16 @@ describe('segment2', function() {
       var s = Segment2(Vec2(0, 0), Vec2(20, 10));
       ok(s.slope() === .5);
     });
+
+    it('should handle horizontal lines', function() {
+      var s = Segment2(Vec2(0, 0), Vec2(10, 0));
+      ok(s.slope() === 0);
+    });
+
+    it('should handle vertical lines', function() {
+      var s = Segment2(Vec2(0, 0), Vec2(0, 10));
+      ok(s.slope() === Infinity);
+    });
   });
 
   describe('#intersect', function() {
@@ -181,10 +201,5 @@ describe('segment2', function() {
       ok(s2.end.equal(Vec2(0, 20)));
       ok(s2 !== s);
     });
-
-
-
-
   });
-
 });

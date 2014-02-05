@@ -12,6 +12,9 @@ function Segment2(start, end) {
   this.start = new Vec2(start);
   this.end = new Vec2(end);
 
+  this.start.change(this.notify.bind(this));
+  this.end.change(this.notify.bind(this));
+
   this._listeners = [];
 }
 
@@ -32,10 +35,10 @@ Segment2.prototype.ignore = function(fn) {
 
 };
 
-Segment2.prototype.notify = function() {
+Segment2.prototype.notify = function(vec) {
   var fns = this._listeners, l = fns.length;
   for (var i=0; i<l; i++) {
-    fns[i](this);
+    fns[i](this, vec);
   }
 };
 
@@ -70,6 +73,11 @@ Segment2.prototype.midpoint = function() {
 Segment2.prototype.slope = function() {
   var dy = this.end.y - this.start.y;
   var dx = this.end.x - this.start.x;
+
+  if (!dx) {
+    return Infinity;
+  }
+
   return Vec2.clean(dy/dx);
 };
 
