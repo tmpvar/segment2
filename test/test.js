@@ -102,6 +102,16 @@ describe('segment2', function() {
       var s = Segment2(Vec2(5, 5), Vec2(5, 5));
       ok(s.closestPointTo(Vec2(5, 10)).equal(Vec2(5, 5)))
     });
+
+    it('should not mutate start/end or the incoming vecs', function() {
+      var s = Segment2(Vec2(0, 0), Vec2(10, 0));
+      var target = Vec2(5, 10);
+      s.closestPointTo(target);
+
+      ok(target.equal(Vec2(5, 10)));
+      ok(s.start.equal(Vec2(0, 0)));
+      ok(s.end.equal(Vec2(10, 0)));
+    });
   });
 
   describe('#midpoint', function() {
