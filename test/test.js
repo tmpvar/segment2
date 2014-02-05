@@ -6,6 +6,13 @@ if (typeof require !== "undefined") {
 
 var ok = function(a, msg) { if (!a) throw new Error(msg || "not ok"); };
 
+function Vec2Extended() {
+  return Vec2.apply(this, arguments);
+}
+Vec2Extended.prototype = Object.create(Vec2.prototype);
+Vec2Extended.prototype.constructor = Vec2Extended;
+
+
 describe('segment2', function() {
   describe('#change', function() {
     it('should add a listener', function() {
@@ -78,6 +85,16 @@ describe('segment2', function() {
     });
   });
 
+  describe('#equal', function() {
+    it('should compare both start and end', function() {
+      ok(Segment2(Vec2(0, 0), Vec2(100, 10)).equal(Segment2(Vec2(0, 0), Vec2(100, 10))));
+    });
+
+    it('should bail fast when an invalid seg is passed', function() {
+      ok(!Segment2(Vec2(0, 0), Vec2(100, 10)).equal(null));
+    });
+  });
+
   describe('#clone', function() {
     it('should return a copy of the line', function() {
 
@@ -94,26 +111,12 @@ describe('segment2', function() {
       ok(s.end.equal(s2.end));
     });
 
-    it('should return a copy of the line (swap ctors)', function() {
-
-      var s = new Segment2(new Vec2(0, 0), new Vec2(10, 0));
-
-      function noop(a, b) {
-        this.args = [a, b];
-        this.noop = true;
-      }
-
-      function noopVec() {
-        this.vec = true;
-      }
-
-      var s2 = s.clone(noop, noopVec);
-
-      ok(s !== s2);
-
-      ok(s2.noop);
-      ok(s2.args[0].vec);
-      ok(s2.args[1].vec);
+    it('should use this.constructor', function() {
+      var s = new Segment2(new Vec2Extended(0, 0), new Vec2Extended(10, 0));
+      var c = s.clone();
+      ok(c.start instanceof Vec2Extended);
+      ok(c.end instanceof Vec2Extended);
+      ok(s.equal(c));
     });
   });
 

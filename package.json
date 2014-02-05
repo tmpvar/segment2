@@ -2,7 +2,13 @@
   "name": "segment2",
   "version": "0.2.0",
   "description": "2d line segment",
-  "keywords" : ["2d", "line segment", "line", "segment", "geometry"],
+  "keywords": [
+    "2d",
+    "line segment",
+    "line",
+    "segment",
+    "geometry"
+  ],
   "main": "segment2.js",
   "repository": {
     "type": "git",
@@ -21,5 +27,8 @@
     "test": "node_modules/mocha/bin/mocha test/test.js -R spec",
     "cover": "istanbul cover _mocha -- test/test.js -R spec",
     "minify": "browserify -e segment2.js | uglifyjs > segment2.js.min.js"
+  },
+  "dependencies": {
+    "vec2": "~1.4.0"
   }
 }

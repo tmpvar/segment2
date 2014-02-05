@@ -41,9 +41,11 @@ __ignore__([fn])
 
 Remove a listener, or all of them if `fn` is not passed
 
-__clone__([segmentCtor [, vecCtor]])
+__clone__()
 
 Create a copy of this segment.
+
+_note_: this function uses `this.constructor` to create clones of subclasses.
 
 Pass `segmentCtor` if you have subclassed `Segment2`
 

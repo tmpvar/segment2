@@ -18,6 +18,9 @@ function Segment2(start, end) {
   this._listeners = [];
 }
 
+
+Segment2.prototype.constructor = Segment2;
+
 Segment2.prototype.change = function(fn) {
   this._listeners.push(fn);
   return fn;
@@ -42,14 +45,19 @@ Segment2.prototype.notify = function(vec) {
   }
 };
 
-Segment2.prototype.clone = function(segmentCtor, vecCtor) {
-  vecCtor = vecCtor || Vec2;
-  segmentCtor = segmentCtor || Segment2;
-
-  return new segmentCtor(
-    new vecCtor(this.start.x, this.start.y),
-    new vecCtor(this.end.x, this.end.y)
+Segment2.prototype.clone = function() {
+  return new (this.constructor)(
+    new (this.start.constructor)(this.start.x, this.start.y),
+    new (this.end.constructor)(this.end.x, this.end.y)
   );
+};
+
+Segment2.prototype.equal = function(seg) {
+  if (!seg || !seg.start || !seg.end) {
+    return false;
+  }
+
+  return seg.start.equal(this.start) && seg.end.equal(this.end);
 };
 
 Segment2.prototype.length = function() {
