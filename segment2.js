@@ -9,8 +9,8 @@ function Segment2(start, end) {
     return new Segment2(start, end);
   }
 
-  this.start = new Vec2(start);
-  this.end = new Vec2(end);
+  this.start = start || new Vec2();
+  this.end = end || new Vec2();
 
   this.start.change(this.notify.bind(this));
   this.end.change(this.notify.bind(this));
