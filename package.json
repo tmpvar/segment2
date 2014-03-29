@@ -1,6 +1,6 @@
 {
   "name": "segment2",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "2d line segment",
   "keywords": [
     "2d",
@@ -29,6 +29,7 @@
     "minify": "browserify -e segment2.js | uglifyjs > segment2.js.min.js"
   },
   "dependencies": {
-    "vec2": "~1.4.0"
+    "vec2": "~1.4.0",
+    "segseg": "^0.2.1"
   }
 }
