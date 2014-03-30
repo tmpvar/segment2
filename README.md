@@ -83,6 +83,14 @@ apply a rotation to the current start/end points around `origin`.  If `origin` i
 
 _note_: calling it like `seg.rotate(Math.PI, true)` is also valid and will return a copy of `seg` rotated around `seg`'s midpoint.
 
+__collinear__(seg)
+
+returns `true` when the passed `seg` is collinear with this
+
+__parallel__(seg)
+
+returns `true` when the passed `seg` is parallel with this
+
 
 ### license
 

@@ -155,6 +155,18 @@ Segment2.prototype.intersect = function(seg) {
   }
 };
 
+Segment2.prototype.collinear = function(seg) {
+  var s = this.start.perpDot(seg.end);
+  var e = this.end.perpDot(seg.start);
+  return s-e === 0;
+};
+
+Segment2.prototype.parallel = function(seg) {
+  return this.start.subtract(this.end, true).abs().normalize().equal(
+    seg.start.subtract(seg.end, true).abs().normalize()
+  );
+}
+
 if (typeof module !== "undefined" && typeof module.exports == "object") {
   module.exports = Segment2;
 }

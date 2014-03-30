@@ -278,4 +278,31 @@ describe('segment2', function() {
       ok(!s.containsPoint(Vec2(110, 0)));
     });
   });
+
+  describe('#collinear', function() {
+    it('should return true if the passed seg is collinear with this', function() {
+        var s = Segment2(Vec2(0, 0), Vec2(10, 0));
+        ok(s.collinear(Segment2(Vec2(0, 0), Vec2(10, 0))));
+        ok(s.collinear(Segment2(Vec2(20, 0), Vec2(100, 0))));
+    });
+
+    it('should return false if the passed seg is not collinear with this', function() {
+        var s = Segment2(Vec2(0, 0), Vec2(10, 0));
+        ok(!s.collinear(Segment2(Vec2(0, 1), Vec2(10, 1))));
+        ok(!s.collinear(Segment2(Vec2(20, 1), Vec2(100, 1))));
+    });
+  });
+
+  describe('#parallel', function() {
+    it('should return true if the passed seg is parallel with this', function() {
+        var s = Segment2(Vec2(0, 0), Vec2(10, 0));
+        ok(s.parallel(Segment2(Vec2(0, 10), Vec2(10, 10))));
+    });
+
+    it('should return false if the passed seg is not parallel with this', function() {
+        var s = Segment2(Vec2(0, 0), Vec2(10, 0));
+        ok(!s.parallel(Segment2(Vec2(0, 1), Vec2(10, 10))));
+        ok(!s.parallel(Segment2(Vec2(20, 1), Vec2(100, 10))));
+    });
+  });
 });
